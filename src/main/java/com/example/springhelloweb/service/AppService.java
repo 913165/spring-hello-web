@@ -14,11 +14,11 @@ public class AppService {
 
     // static block to populate the student data with firstname , lastname , country and favourite language with five records
     static {
-        students.add(new Student("John", "Doe", "United States", "Java"));
-        students.add(new Student("Jane", "Smith", "United Kingdom", "Python"));
-        students.add(new Student("Tom", "Brown", "Canada", "JavaScript"));
-        students.add(new Student("Mary", "Johnson", "Australia", "C++"));
-        students.add(new Student("Peter", "White", "New Zealand", "Ruby"));
+        students.add(new Student(1,"John", "Doe", "United States", "Java"));
+        students.add(new Student(2,"Jane", "Smith", "United Kingdom", "Python"));
+        students.add(new Student(3,"Tom", "Brown", "Canada", "JavaScript"));
+        students.add(new Student(4,"Mary", "Johnson", "Australia", "C++"));
+        students.add(new Student(5,"Peter", "White", "New Zealand", "Ruby"));
     }
 
     // method to get all the students
@@ -27,8 +27,13 @@ public class AppService {
     }
 
     // get student by id
-    public Student getStudentById(int id) {
-        return students.get(id);
+    public Student getStudentById(Integer id) {
+        for (Student student : students) {
+            if (student.getId().equals(id)) {
+                return student;
+            }
+        }
+        return null;
     }
 
     // method to add a student
@@ -38,8 +43,13 @@ public class AppService {
     }
 
     // method to delete a student
-    public void deleteStudent(int student) {
-        students.remove(student);
+    public void deleteStudent(Integer student) {
+        for (Student s : students) {
+            if (s.getId() == student) {
+                students.remove(s);
+                break;
+            }
+        }
     }
 
     // method to update a student

@@ -1,6 +1,18 @@
 package com.example.springhelloweb.model;
 
 public class Student {
+
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    // properties
     private String firstName;
     private String lastName;
     private String country;
@@ -11,12 +23,15 @@ public class Student {
     }
 
     // contructor with all properites
-    public Student(String firstName, String lastName, String country, String favoriteLanguage) {
+    public Student(int id,String firstName, String lastName, String country, String favoriteLanguage) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
         this.favoriteLanguage = favoriteLanguage;
     }
+
+
 
     // getters and settter for all properties
     // ...

@@ -3,9 +3,7 @@ package com.example.springhelloweb.controller;
 import com.example.springhelloweb.model.Student;
 import com.example.springhelloweb.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,26 +27,26 @@ public class AppController {
     }
 
     // get student by id from Appservice
-    @GetMapping
-    public Student getStudentById(int id) {
+    @GetMapping("/students/{id}")
+    public Student getStudentById(@PathVariable(value = "id") Integer id) {
         return appService.getStudentById(id);
     }
 
     // add student
-    @PostMapping
+    @PostMapping(value = "/students")
     public Student addStudent(Student student) {
         return appService.addStudent(student);
     }
 
     // update student
-    @PostMapping
+    @PutMapping(value = "/students")
     public Student updateStudent(Student student) {
         return appService.updateStudent(student);
     }
 
     // delete student
-    @PostMapping
-    public void deleteStudent(int id) {
+    @DeleteMapping(value = "/students/{id}")
+    public void deleteStudent(@PathVariable(value = "id") Integer id) {
         appService.deleteStudent(id);
     }
 
