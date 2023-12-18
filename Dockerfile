@@ -1,26 +1,17 @@
-# Use Maven image to build the Spring Boot application
-FROM maven:3.8.4-openjdk-17-slim AS build
+# syntax=docker/dockerfile:1
 
-# Set the working directory inside the container
-WORKDIR /build
+ FROM eclipse-temurin:17-jdk-jammy
 
-# Copy the Maven project files into the container
-COPY . /build
+ WORKDIR /app
+ COPY .mvn/ .mvn
+ COPY mvnw pom.xml ./
 
-# Build the Spring Boot application
-RUN mvn clean package
+ # Converting the mvnw line endings during build (if you don’t change line endings of the mvnw file)
+ RUN apt-get update && apt-get install -y dos2unix
+ RUN dos2unix ./mvnw
 
-# Use OpenJDK 17 as the base image
-FROM adoptopenjdk/openjdk17:alpine-jre
+ RUN ./mvnw dependency:resolve
 
-# Set the working directory inside the container
-WORKDIR /app
+ COPY src ./src
 
-# Copy the built Spring Boot application JAR file into the container from the build stage
-COPY --from=build /build/target/spring-hello-web-0.0.1-SNAPSHOT.jar /app/spring-hello-web.jar
-
-# Expose the port that the Spring Boot application uses
-EXPOSE 8080
-
-# Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "spring-hello-web.jar"]
+ CMD ["./mvnw", "spring-boot:run"]
