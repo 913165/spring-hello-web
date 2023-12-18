@@ -1,5 +1,5 @@
 # Use Maven image to build the Spring Boot application
-FROM maven:3.8.4-openjdk-11-slim AS build
+FROM maven:3.8.4-openjdk-17-slim AS build
 
 # Set the working directory inside the container
 WORKDIR /build
@@ -10,8 +10,8 @@ COPY . /build
 # Build the Spring Boot application
 RUN mvn clean package
 
-# Use OpenJDK 11 as the base image
-FROM openjdk:11-jre-slim
+# Use OpenJDK 17 as the base image
+FROM adoptopenjdk/openjdk17:alpine-jre
 
 # Set the working directory inside the container
 WORKDIR /app
